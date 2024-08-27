@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title%} Questions {% endblock %}
+
+{% block content %}
+
+{% for msg in get_flashed_messages()%}
+<div class="flash-container">
+    <p class=flash-message>{{msg}}</p>
+</div>
+{% endfor %}
+
+<div class="content-wrapper">
+    <h3>Question {{ question_id + 1 }}:</h3>
+    <form action="{{ url_for('answer', question_id = question_id + 1)}}" method="POST">
+        <p>{{question.question}}</p>
+
+        {% for choice in question.choices %}
+        <input type="radio" id="choice{{ loop.index }}" name="choice" value="{{ choice }}" required>
+        <label for="choice{{ loop.index }}">{{ choice }}</label><br>
+        {% endfor %}
+
+        <input type="submit" value="Next">
+    </form>
+</div>
+{% endblock %}
